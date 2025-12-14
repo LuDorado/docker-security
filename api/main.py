@@ -125,3 +125,7 @@ def login(user: UserLogin):
 @app.get("/me")
 def me(user: str = Depends(get_current_user)):
     return {"username": user}
+
+@app.get("/health")
+def health():
+    return {"status": "healthy"}
