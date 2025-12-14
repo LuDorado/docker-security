@@ -4,10 +4,10 @@ RUN adduser --system --group --uid 1001 --home /app appuser
 
 WORKDIR /app
 
-# Install system dependencies with version pinning
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
-    gcc=4:12.2.0-3 \
-    libpq-dev=15.8-0+deb12u1 \
+    gcc \
+    libpq-dev \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
@@ -22,8 +22,6 @@ COPY --chown=appuser:appuser . .
 RUN chmod -R 755 /app
 
 USER appuser
-
-
 
 EXPOSE 8000
 

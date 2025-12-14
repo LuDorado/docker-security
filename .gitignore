@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.so
+.venv/
+venv/
+env/
+.env
+
+# Docker
+.dockerignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.sqlite3
+
+# Secrets
+.env.local
+.env.production
+secrets/
+*.key
+*.pem
+
+# Node modules (if any)
+node_modules/
+
+# Build artifacts
+dist/
+build/
+*.tar.gz
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
