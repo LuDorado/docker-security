@@ -1,4 +1,4 @@
-let token = null;
+
 const API_URL = "/api";
 
 /* ---------- UI HELPERS ---------- */
@@ -123,7 +123,7 @@ function toggleTheme() {
 /* ---------- INIT ---------- */
 
 window.onload = () => {
-  token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   if (token) {
     showView("hacker");

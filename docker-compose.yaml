@@ -5,12 +5,14 @@ services:
       POSTGRES_USER: app
       POSTGRES_PASSWORD: app
       POSTGRES_DB: appdb
-    ports:
-      - "5432:5432"
+    # ports:
+    #   - "5432:5432"  # Solo para desarrollo
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U app -d appdb"]
-      interval: 5s
-      retries: 5
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
 
   api:
     build: ./api
@@ -37,4 +39,5 @@ services:
     ports:
       - "8080:80"
     depends_on:
-      - api
+      api:
+        condition: service_started
