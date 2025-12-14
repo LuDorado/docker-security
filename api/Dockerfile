@@ -1,14 +1,30 @@
-FROM python:3.11-slim
+FROM python:3.11.9-slim
+
+RUN adduser --system --group --uid 1001 --home /app appuser
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y gcc libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
+# Install system dependencies with version pinning
+RUN apt-get update && apt-get install -y \
+    gcc=4:12.2.0-3 \
+    libpq-dev=15.8-0+deb12u1 \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
 
+# Copy and install Python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip==24.0 \
+    && pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+# Copy application code with proper ownership
+COPY --chown=appuser:appuser . .
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+RUN chmod -R 755 /app
 
+USER appuser
+
+
+
+EXPOSE 8000
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
