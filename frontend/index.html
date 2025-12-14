@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Docker Security Lab</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="theme-toggle" onclick="toggleTheme()">🌙</div>
+
+<div class="card">
+  <img src="images/hackademy.png" class="logo" />
+  <div id="loader" class="loader"></div>
+
+
+  <!-- MESSAGE -->
+  <div id="message" class="message hidden"></div>
+
+  <!-- WELCOME -->
+  <div id="welcome" class="view active">
+    <h2>This is the final lab of the docker security training</h2>
+    <div class="actions">
+      <button class="login" onclick="showView('login')">Login</button>
+      <button class="register" onclick="showView('register')">Register</button>
+    </div>
+  </div>
+
+  <!-- LOGIN -->
+<form id="login" class="view" onsubmit="login(event)">
+  <h3>Login</h3>
+
+  <input name="username" placeholder="Username" required />
+  <input name="password" type="password" minlength="10" required />
+
+  <button class="login">Login</button>
+
+  <p class="link" onclick="showView('register')">
+    Don't have an account? Register
+  </p>
+</form>
+
+
+
+  <!-- REGISTER -->
+<form id="register" class="view" onsubmit="register(event)">
+  <h3>Register</h3>
+
+  <input id="username" placeholder="Username" required />
+  <input id="password" type="password" placeholder="Password" minlength="10" required />
+  <div class="password-requirements">
+    <small>Password must have: 10+ chars, 1 lowercase, 1 uppercase, 1 number, 1 symbol</small>
+  </div>
+
+  <button class="register">Create account</button>
+
+  <p class="link" onclick="showView('login')">
+    Already have an account? Login
+  </p>
+
+  <p class="link" onclick="showView('welcome')">
+    ← Back
+  </p>
+</form>
+
+
+  <!-- HACKER -->
+  <div id="hacker" class="view">
+    <h1>💻 Congratulations</h1>
+    <h2>You are a hacker now!!! 😈</h2>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
