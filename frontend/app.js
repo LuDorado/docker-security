@@ -90,6 +90,8 @@ async function register(e) {
     return;
   }
 
+
+
   try {
     const res = await fetch(`${API_URL}/register`, {
       method: "POST",
