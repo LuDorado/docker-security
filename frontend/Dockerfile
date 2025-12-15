@@ -1,4 +1,4 @@
-FROM nginx:1.26.2-alpine3.20
+FROM nginx:1.29.4-alpine3.23
 
 RUN addgroup -g 1001 -S nginxuser && \
     adduser -u 1001 -D -S -G nginxuser nginxuser
