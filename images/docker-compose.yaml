@@ -1,6 +1,6 @@
 services:
   db:
-    image: loudeepurple/docker-security-db:3
+    build: ./db
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -15,7 +15,7 @@ services:
       start_period: 30s
 
   api:
-    image: loudeepurple/docker-security-api:3
+    build: ./api
     environment:
       DB_HOST: ${DB_HOST}
       DB_USER: ${DB_USER}
@@ -25,12 +25,12 @@ services:
       JWT_EXPIRE_MINUTES: ${JWT_EXPIRE_MINUTES}
     depends_on:
       db:
-        condition: service_started
+        condition: service_healthy
     expose:
       - "8000"
 
   frontend:
-    image: loudeepurple/docker-security-frontend:3
+    build: ./frontend
     ports:
       - "8080:80"
     depends_on:
