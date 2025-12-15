@@ -1,20 +1,22 @@
-FROM python:3.11.9-slim
+FROM python:3.11-alpine3.20
 
-RUN adduser --system --group --uid 1001 --home /app appuser
+RUN addgroup -g 1001 -S appuser && \
+    adduser -u 1001 -D -S -G appuser -h /app appuser
 
 WORKDIR /app
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y \
+RUN apk add --no-cache \
     gcc \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/* \
-    && apt-get clean
+    musl-dev \
+    postgresql-dev \
+    libffi-dev \
+    openssl-dev
 
 # Copy and install Python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip==24.0 \
-    && pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code with proper ownership
 COPY --chown=appuser:appuser . .
